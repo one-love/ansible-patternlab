@@ -1,0 +1,47 @@
+---
+# tasks file for patternlab
+
+- name: Install packages
+  sudo: yes
+  apt:
+    name: "{{ item.name }}"
+    update_cache: yes
+  with_items:
+    - name: unzip
+    - name: php5
+
+- name: Download patternlab
+  get_url:
+    url: "{{ download_src }}"
+    dest: /tmp/patternlab.zip
+    mode: 0440
+
+- name: Unpack patternlab
+  unarchive:
+    src: /tmp/patternlab.zip
+    dest: /tmp/
+    copy: no
+    creates: /tmp/patternlab-php-master/
+
+- name: Copy patternlab files
+  sudo: yes
+  command: "cp -a /tmp/patternlab-php-master/. {{ www_root }}/"
+  args:
+    creates: "{{ www_root }}/core"
+
+- name: Setting permissions for {{ www_root }}
+  sudo: yes
+  file:
+    path: "{{ www_root }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    recurse: yes
+
+- name: Generate patternlab
+  sudo: yes
+  sudo_user: www-data
+  command: php core/builder.php -g
+  args:
+    chdir: "{{ www_root }}"
+    creates: "{{ www_root }}/public/index.html"

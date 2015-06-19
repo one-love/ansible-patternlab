@@ -1,0 +1,5 @@
+---
+# defaults file for patternlab
+www_root: "/var/www/html"
+download_src: "http://github.com/pattern-lab/patternlab-php/archive/master.zip"
+
