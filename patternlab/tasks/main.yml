@@ -45,3 +45,17 @@
   args:
     chdir: "{{ www_root }}"
     creates: "{{ www_root }}/public/index.html"
+
+- name: Configure apache
+  sudo: yes
+  template:
+    src: apache.j2
+    dest: /etc/apache2/sites-available/000-default.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart apache
+
+
+

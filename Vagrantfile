@@ -12,6 +12,13 @@ Vagrant.configure(2) do |config|
             vb.memory = "1024"
         end
 
+        patternlab.vm.synced_folder "./shared",
+            "/var/www/html/",
+            :id => "www-root",
+            :owner => "vagrant",
+            :group => "www-data",
+            mount_options: ["dmode=777,fmode=776"]
+
         patternlab.vm.provision "ansible" do |ansible|
             ansible.playbook = "site.yml"
             ansible.host_key_checking = false
