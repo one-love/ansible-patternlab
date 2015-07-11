@@ -2,4 +2,5 @@
 # defaults file for patternlab
 www_root: "/var/www/html"
 download_src: "http://github.com/pattern-lab/patternlab-php/archive/master.zip"
+markup_src: "https://github.com/one-love/patternlab-src.git"
 

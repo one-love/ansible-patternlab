@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
             vb.memory = "1024"
         end
 
-        patternlab.vm.synced_folder "./shared",
+        patternlab.vm.synced_folder "./patternlab",
             "/var/www/html/",
             :id => "www-root",
             :owner => "vagrant",
