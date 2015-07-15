@@ -1,4 +1,4 @@
 - name: Pattern Lab
   hosts: all
   roles:
-    - patternlab
+    - roles/patternlab
