@@ -2,5 +2,6 @@ vagrant_ansible_inventory_*
 .vagrant/
 *.log
 *.swp
-patternlab/*
+projects/*
+!projects/.gitkeep
 .idea
