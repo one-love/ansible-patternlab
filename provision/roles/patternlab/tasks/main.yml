@@ -9,6 +9,9 @@
   with_items:
     - name: unzip
     - name: php5
+    - name: git
+    - name: nodejs
+    - name: npm
 
 - name: Download patternlab
   get_url:
@@ -22,6 +25,19 @@
     dest: /tmp/
     copy: no
     creates: /tmp/patternlab-php-master/
+
+- name: Remove placeholder source folder
+  file:
+    path: /tmp/patternlab-php-master/source/
+    state: absent
+
+- name: Link nodejs
+  become: yes
+  file:
+    src: /usr/bin/nodejs
+    dest: /usr/bin/node
+    state: link
+
 
 - name: Copy patternlab files
   sudo: yes
@@ -37,6 +53,13 @@
     owner: www-data
     group: www-data
     recurse: yes
+
+- name: Clone src repo
+  git:
+    repo: "{{ markup_src }}"
+    dest: "{{ www_root }}/source"
+    accept_hostkey: yes
+    update: no
 
 - name: Generate patternlab
   sudo: yes
