@@ -45,15 +45,6 @@
   args:
     creates: "{{ www_root }}/core"
 
-- name: Setting permissions for {{ www_root }}
-  sudo: yes
-  file:
-    path: "{{ www_root }}"
-    state: directory
-    owner: www-data
-    group: www-data
-    recurse: yes
-
 - name: Clone src repo
   git:
     repo: "{{ markup_src }}"

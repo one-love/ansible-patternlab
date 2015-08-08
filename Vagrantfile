@@ -15,9 +15,11 @@ Vagrant.configure(2) do |config|
         patternlab.vm.synced_folder "./patternlab",
             "/var/www/html/",
             :id => "www-root",
-            :owner => "vagrant",
-            :group => "www-data",
-            mount_options: ["dmode=777,fmode=776"]
+            :owner => nil,
+            :group => nil,
+            :nfs => {
+              mount_options: ["dmode=777,fmode=776"]
+            }
 
         patternlab.vm.provision "ansible" do |ansible|
             ansible.playbook = "provision/site.yml"
